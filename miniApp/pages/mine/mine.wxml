@@ -1,2 +1,4 @@
 <!--miniApp/pages/mine/mine.wxml-->
-<text>miniApp/pages/mine/mine.wxml</text>
+<view class="mine">
+  <view class="iconfont icondaifahuo"></view>
+</view>
