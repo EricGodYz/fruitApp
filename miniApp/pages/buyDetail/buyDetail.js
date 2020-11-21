@@ -1,4 +1,6 @@
 // miniApp/pages/buyDetail/buyDetail.js
+
+const path = 'http://localhost:8000/api/cart/addCartData'
 Page({
 
   /**
@@ -25,46 +27,30 @@ Page({
     
   },
   cartAction(){
+    //goodsid,title,price,imgurl
     console.log('加入购物车');
-    console.log(this.data.id);
-    const id = this.data.id
-    this.orderCollection.where({
-      id:id,
-    }).get({
+    console.log(this.data.arr);
+    
+    wx.request({
+      url: path,
+      method:'POST',
+      data:{
+        'goodsid':this.data.id,
+        'title':this.data.arr.name,
+        'price':this.data.price,
+        'imgurl':this.data.arr.url,
+        'count':this.data.num
+      },
       success:(res)=>{
-        // console.log(id);
-        let user = res.data.filter(item=>item.id ===id);
-        console.log(user);
-        if(user){
-          this.orderCollection.doc('oxKQT5fzOGj6FCj2vlFI7rPME3NQ').updata({
-            data:{
-            }
-          })
-        }
-        // console.log(res);
+        console.log(res);
         
       },
-      fail(err){
+      fail:(err)=>{
         console.log(err);
         
       }
     })
- 
     
-    // this.orderCollection.add({
-    //   data:{
-    //     id:this.data.id,
-    //     arr:this.data.arr,
-    //     num:this.data.num,
-    //     price:this.data.price
-    //   }
-    // }).then(res=>{
-    //   console.log(res);
-      
-    // }).catch(err=>{
-    //   console.log(err);
-      
-    // })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -86,11 +72,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // 获得数据库
-    const db = wx.cloud.database();
-    // 获取集合
-    const order = db.collection('order');
-    this.orderCollection = order;
+  
   },
 
   /**

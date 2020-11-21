@@ -20,7 +20,7 @@ mongoose.connect(
             console.log(error);
         });
 
-        server.listen(8000,"10.36.150.44",()=>{
+        server.listen(8000,'localhost',()=>{
             console.log("服务启动成功...");
         })
     }

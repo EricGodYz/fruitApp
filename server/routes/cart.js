@@ -9,14 +9,13 @@ const router=new Router({
 
 //添加购物车
 router.post('/addCartData',async (ctx)=>{
-    let {goodsid,title,price,imgurl}=ctx.request.header;//获取post请求参数
-    // console.log(goodsid,title,price,imgurl);
-    if(goodsid&&title&&price&&imgurl){
-        
-    }
+    console.log(ctx.request.body);
+    
+    let {goodsid,title,price,imgurl,count}=ctx.request.body;//获取post请求参数
+
     let result=await Cart.findOne({goodsid});
     if(!result){
-        result=await new Cart({goodsid,title,price,imgurl,count:1}).save();
+        result=await new Cart({goodsid,title,price,imgurl,count}).save();
         ctx.status=200;
         ctx.body={
             message:"添加成功"

@@ -1,13 +1,13 @@
 // miniApp/pages/shopCart/shopCart.js
 
-const path = 'http://10.36.150.44:8000/api/cart/addCartData'
+const path = 'http://localhost:8000/api/cart/queryCartData'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    arr:[]
   },
 
   /**
@@ -15,24 +15,26 @@ Page({
    */
   onLoad: function (options) {
     wx.request({
-      url: path,
-      method: 'POST',
-      data: {
-        'goodsID': 123,
-        'title':111
-
-
-      },
-      success: (result) => {
-        console.log(result);
+      url:path,
+      method:'GET',
+      data:{},
+      success:(res)=>{
+        console.log(res);
         
+        let arr = res.data.data.map(item=>({
+          title:item.title,
+          goodsid:item.goodsid,
+          price:item.price,
+          count:item.count,
+          imgurl:item.imgurl
+        }))
+      
+       
+        console.log(arr)
+        this.setData({arr:arr});
       },
-      fail(error) {
-        console.log('fail...');
-        console.log(error);
-      },
-      complete() {
-        console.log('complete...');
+      fail:(err)=>{
+        console.log(err)
       }
     })
   },
