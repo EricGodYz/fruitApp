@@ -1,4 +1,5 @@
 <!--miniApp/pages/mine/mine.wxml-->
 <view class="mine">
   <view class="iconfont icondaifahuo"></view>
+  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoAction">登录</button>
 </view>
